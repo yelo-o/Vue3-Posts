@@ -1,7 +1,10 @@
 <template>
 	<div>
 		<h2>About Page</h2>
-		{{ $route.path }}
+		<p>{{ $route.path }}</p>
+		<button class="btn btn-primary" @click="$router.push('/')">
+			Home으로 이동
+		</button>
 	</div>
 </template>
 
