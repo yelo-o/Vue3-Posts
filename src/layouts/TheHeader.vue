@@ -51,7 +51,7 @@ const goPage = () => {
 	// router.push('/posts/create');
 	//객체 push로 변경
 	router.push({
-		name: 'postCreate',
+		name: 'PostCreate',
 	});
 };
 </script>
