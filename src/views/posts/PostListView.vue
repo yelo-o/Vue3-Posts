@@ -7,7 +7,7 @@
 				<PostItem
 					:title="post.title"
 					:content="post.content"
-					:created-at="post.createAt"
+					:created-at="post.createdAt"
 					@click="goPage(post.id)"
 				></PostItem>
 			</div>
@@ -29,10 +29,14 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const posts = ref([]);
+const params = ref({
+	_sort: 'createdAt',
+	_order: 'desc',
+});
 
 const fetchPosts = async () => {
 	try {
-		const { data } = await getPosts();
+		const { data } = await getPosts(params.value);
 		posts.value = data;
 	} catch (error) {
 		console.error(error);
@@ -48,11 +52,6 @@ const goPage = id => {
 		params: {
 			id,
 		},
-		// http://localhost:5173/posts/2?searchtext=hello#world! query와 hash 사용
-		// query: {
-		// 	searchtext: 'hello',
-		// },
-		// hash: '#world!',
 	});
 };
 </script>
