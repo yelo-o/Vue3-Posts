@@ -33,3 +33,9 @@ npm run build
 ```sh
 npm run lint
 ```
+
+### Run [json server](https://github.com/typicode/json-server)
+
+```sh
+npm run db
+```
