@@ -28,13 +28,16 @@
 </template>
 
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { getPostById } from '@/api/posts';
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
+
+const props = defineProps({
+	id: Number,
+});
 
 const router = useRouter();
-const route = useRoute();
-const id = route.params.id;
+// const id = route.params.id;
 /**
  * ref
  * 장) 객체 할당 가능
@@ -46,15 +49,10 @@ const id = route.params.id;
  * 단) 객체 할당 불가능
  */
 const form = ref({});
-// let form = reactive({});
-// reactive()
 
-console.log('post : ', getPostById(id));
 const fetchPost = () => {
-	const data = getPostById(id);
+	const data = getPostById(props.id);
 	form.value = { ...data }; //객체 복사
-	// form.title = data.title;
-	// form.content = data.content;
 };
 
 fetchPost();
@@ -68,7 +66,7 @@ const goListPage = () => {
 const goEditPage = () => {
 	router.push({
 		name: 'PostEdit',
-		params: { id },
+		params: { id: props.id },
 	});
 };
 </script>
