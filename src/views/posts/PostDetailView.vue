@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h2>제목</h2>
-		<p>내용</p>
-		<p class="text-muted">2020-01-01</p>
+		<h2>{{ form.title }}</h2>
+		<p>{{ form.content }}</p>
+		<p class="text-muted">{{ form.createAt }}</p>
 		<hr class="my-4" />
 		<div class="row g-2">
 			<div class="col-auto">
@@ -29,10 +29,21 @@
 
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
+import { getPostById } from '@/api/posts';
+import { ref } from 'vue';
+
 const router = useRouter();
 const route = useRoute();
-
 const id = route.params.id;
+const form = ref({});
+
+console.log('post : ', getPostById(id));
+const fetchPost = () => {
+	const data = getPostById(id);
+	form.value = { ...data }; //객체 복사
+};
+
+fetchPost();
 
 const goListPage = () => {
 	router.push({
