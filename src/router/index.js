@@ -32,16 +32,7 @@ const routes = [
 		path: '/posts/:id',
 		name: 'PostDetail',
 		component: PostDetailView,
-		// props: true,
-		//객체 리턴 방식 1 : 일반적인 객체 리턴
-		// props: route => {
-		// 	return {
-		// 		id: parseInt(route.params.id),
-		// 	};
-		// },
-
-		//객체 리턴 방식 2 : 하나의 객체 리턴
-		props: route => ({ id: parseInt(route.params.id) }),
+		props: true,
 	},
 	{ path: '/posts/:id/edit', name: 'PostEdit', component: PostEditView },
 	{ path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundView },
