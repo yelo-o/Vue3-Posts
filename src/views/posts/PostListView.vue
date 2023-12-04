@@ -31,15 +31,8 @@ const router = useRouter();
 const posts = ref([]);
 
 const fetchPosts = async () => {
-	const response = await getPosts();
-	console.dir(response);
-	// getPosts()
-	// 	.then(response => {
-	// 		console.log('response : ', response);
-	// 	})
-	// 	.catch(error => {
-	// 		console.log('error : ', error);
-	// 	});
+	const { data } = await getPosts();
+	posts.value = data;
 };
 fetchPosts();
 const goPage = id => {
