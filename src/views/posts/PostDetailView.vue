@@ -30,17 +30,31 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { getPostById } from '@/api/posts';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 const router = useRouter();
 const route = useRoute();
 const id = route.params.id;
+/**
+ * ref
+ * 장) 객체 할당 가능
+ * 단) form.value.title, form.value.content <- 이런식으로 value가 붙어야 함
+ * 장) 일관성 유지
+ *
+ * reactive
+ * 장) form.title, form.content
+ * 단) 객체 할당 불가능
+ */
 const form = ref({});
+// let form = reactive({});
+// reactive()
 
 console.log('post : ', getPostById(id));
 const fetchPost = () => {
 	const data = getPostById(id);
 	form.value = { ...data }; //객체 복사
+	// form.title = data.title;
+	// form.content = data.content;
 };
 
 fetchPost();
