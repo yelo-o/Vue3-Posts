@@ -29,8 +29,18 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const posts = ref([]);
+
 const fetchPosts = () => {
-	posts.value = getPosts();
+	// const response = getPosts();
+	// console.log('response : ', response);
+	//Promise 객체를 반환하므로 아래와 같이 작성
+	getPosts()
+		.then(response => {
+			console.log('response : ', response);
+		})
+		.catch(error => {
+			console.log('error : ', error);
+		});
 };
 fetchPosts();
 const goPage = id => {
