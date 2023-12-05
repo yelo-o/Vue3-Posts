@@ -28,7 +28,7 @@
 <script setup>
 defineProps({
 	title: String,
-	limit: Number,
+	limit: [Number, String],
 });
 //다중 v-model 이므로 emit 정의
 defineEmits(['update:title', 'update:limit']);
