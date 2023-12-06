@@ -39,3 +39,9 @@ npm run lint
 ```sh
 npm run db
 ```
+
+### 모듈 설치 [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
+글로벌 컴포넌트 인터페이스 자동 정의 모듈
+```
+npm i unplugin-vue-components -D
+```
