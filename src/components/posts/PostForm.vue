@@ -3,6 +3,7 @@
 		<div class="mb-3">
 			<label for="title" class="form-label">제목</label>
 			<!-- autofocus -->
+			<!-- v-color="'blue'" -->
 			<input
 				v-focus
 				:value="title"
