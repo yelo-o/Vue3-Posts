@@ -28,23 +28,12 @@
 				}
 			"
 		/>
-		<AppModal v-model="show" :show="show" title="게시글">
-			<template #default>
-				<div class="row g-3">
-					<div class="col-3 text-muted">제목</div>
-					<div class="col-9">{{ modalTitle }}</div>
-					<div class="col-3 text-muted">내용</div>
-					<div class="col-9">{{ modalContent }}</div>
-					<div class="col-3 text-muted">등록일</div>
-					<div class="col-9">{{ modalCreatedAt }}</div>
-				</div>
-			</template>
-			<template #actions>
-				<button type="button" class="btn btn-secondary" @click="closeModal">
-					닫기
-				</button>
-			</template>
-		</AppModal>
+		<PostModal
+			v-model="show"
+			:title="modalTitle"
+			:content="modalContent"
+			:created-at="modalCreatedAt"
+		/>
 
 		<template v-if="posts && posts.length > 0">
 			<hr class="my-5" />
@@ -59,7 +48,7 @@
 import PostItem from '@/components/posts/PostItem.vue';
 import PostDetailView from '@/views/posts/PostDetailView.vue';
 import PostFilter from '@/components/posts/PostFilter.vue';
-import AppModal from '@/components/AppModal.vue';
+import PostModal from '@/components/posts/PostModal.vue';
 import AppPagination from '@/components/AppPagination.vue';
 import AppCard from '@/components/AppCard.vue';
 import AppGrid from '@/components/AppGrid.vue';
@@ -117,7 +106,6 @@ const openModal = ({ title, content, createdAt }) => {
 	modalContent.value = content;
 	modalCreatedAt.value = createdAt;
 };
-const closeModal = () => (show.value = false);
 </script>
 
 <style lang="scss" scoped></style>
