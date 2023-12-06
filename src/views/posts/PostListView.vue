@@ -28,12 +28,14 @@
 				}
 			"
 		/>
-		<PostModal
-			v-model="show"
-			:title="modalTitle"
-			:content="modalContent"
-			:created-at="modalCreatedAt"
-		/>
+		<Teleport to="#modal">
+			<PostModal
+				v-model="show"
+				:title="modalTitle"
+				:content="modalContent"
+				:created-at="modalCreatedAt"
+			/>
+		</Teleport>
 
 		<template v-if="posts && posts.length > 0">
 			<hr class="my-5" />
