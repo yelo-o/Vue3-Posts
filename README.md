@@ -45,3 +45,8 @@ npm run db
 ```
 npm i unplugin-vue-components -D
 ```
+
+### [day.js](https://day.js.org/docs/en/installation/node-js) 라이브러리 설치 
+```
+npm install dayjs
+```
