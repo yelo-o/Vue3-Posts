@@ -3,10 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from '@/router';
+import focus from '@/directives/focus';
 // import globalComponents from '@/plugins/global-components';
 
 const app = createApp(App);
 // app.use(globalComponents);
+app.directive('focus', focus);
 app.use(router);
 app.mount('#app');
 import 'bootstrap/dist/js/bootstrap.js';
