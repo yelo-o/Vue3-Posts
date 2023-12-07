@@ -56,14 +56,11 @@ import PostItem from '@/components/posts/PostItem.vue';
 import PostDetailView from '@/views/posts/PostDetailView.vue';
 import PostFilter from '@/components/posts/PostFilter.vue';
 import PostModal from '@/components/posts/PostModal.vue';
-import { ref, computed, watchEffect } from 'vue';
-import { getPosts } from '@/api/posts';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAxios } from '@/hooks/useAxios';
 
 const router = useRouter();
-const posts = ref([]);
-const error = ref(null);
-const loading = ref(false);
 const params = ref({
 	_sort: 'createdAt',
 	_order: 'desc',
@@ -72,30 +69,19 @@ const params = ref({
 	title_like: '',
 });
 
+const {
+	response,
+	data: posts,
+	error,
+	loading,
+} = useAxios('/posts', { params });
+
 //Pagination 관련
-const totalCount = ref(0);
+const totalCount = computed(() => response.value.headers['x-total-count']);
 const pageCount = computed(() =>
 	Math.ceil(totalCount.value / params.value._limit),
 );
-
-const fetchPosts = async () => {
-	try {
-		loading.value = true;
-		const { data, headers } = await getPosts(params.value);
-		posts.value = data;
-		totalCount.value = headers['x-total-count'];
-	} catch (err) {
-		error.value = err;
-	} finally {
-		loading.value = false;
-	}
-};
-// fetchPosts();
-watchEffect(fetchPosts);
 const goPage = id => {
-	// url 직접 푸쉬하기
-	// router.push(`/posts/${id}`);
-	// 객체로 push 하기
 	router.push({
 		name: 'PostDetail',
 		params: {
