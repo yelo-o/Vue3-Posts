@@ -3,6 +3,7 @@
 	<AppError v-else-if="error" message="error.message" />
 	<div v-else>
 		<h2>{{ post.title }}</h2>
+		<p>id: {{ props.id }}, isOdd: {{ isOdd }}</p>
 		<p>{{ post.content }}</p>
 		<p class="text-muted">
 			{{ $dayjs(post.createdAt).format('YYYY.MM.DD HH:mm:ss') }}
@@ -47,17 +48,23 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAlert } from '@/composables/alert';
-const { vAlert, vSuccess } = useAlert();
 import { useAxios } from '@/hooks/useAxios';
+import { useNumber } from '@/composables/number';
+import { toRef } from 'vue';
 
 const props = defineProps({
 	id: [String, Number],
 });
 
 const router = useRouter();
-const { error, loading, data: post } = useAxios(`/posts/${props.id}`);
+const idRef = toRef(props, 'id');
+const { isOdd } = useNumber(idRef);
+const { vAlert, vSuccess } = useAlert();
+const url = computed(() => `/posts/${props.id}`);
+const { error, loading, data: post } = useAxios(url);
 
 const {
 	error: removeError,
