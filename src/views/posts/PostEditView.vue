@@ -1,5 +1,7 @@
 <template>
-	<div>
+	<AppLoading v-if="loading" />
+	<AppError v-else-if="error" message="error.message" />
+	<div v-else>
 		<h2>게시글 수정</h2>
 		<hr class="my-4" />
 		<PostForm
@@ -37,14 +39,18 @@ const form = ref({
 	title: null,
 	content: null,
 });
+const error = ref(null);
+const loading = ref(false);
 
 const fetchPost = async () => {
 	try {
+		loading.value = true;
 		const { data } = await getPostById(id);
 		setForm(data);
-	} catch (error) {
-		console.error(error);
-		vAlert(error.message);
+	} catch (err) {
+		error.value = err;
+	} finally {
+		loading.value = false;
 	}
 };
 const setForm = ({ title, content }) => {

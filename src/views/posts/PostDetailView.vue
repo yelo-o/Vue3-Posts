@@ -1,5 +1,7 @@
 <template>
-	<div>
+	<AppLoading v-if="loading" />
+	<AppError v-else-if="error" message="error.message" />
+	<div v-else>
 		<h2>{{ post.title }}</h2>
 		<p>{{ post.content }}</p>
 		<p class="text-muted">
@@ -50,14 +52,23 @@ const router = useRouter();
  * 장) form.title, form.content
  * 단) 객체 할당 불가능
  */
-const post = ref({});
+const post = ref({
+	title: null,
+	content: null,
+	createdAt: null,
+});
+const error = ref(null);
+const loading = ref(false);
 
 const fetchPost = async () => {
 	try {
+		loading.value = true;
 		const { data } = await getPostById(props.id);
 		setPost(data);
-	} catch (error) {
-		console.error(error);
+	} catch (er) {
+		error.value = er;
+	} finally {
+		loading.value = false;
 	}
 };
 const setPost = ({ title, content, createdAt }) => {
