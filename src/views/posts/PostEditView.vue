@@ -1,9 +1,12 @@
 <template>
 	<AppLoading v-if="loading" />
+
 	<AppError v-else-if="error" message="error.message" />
+
 	<div v-else>
 		<h2>게시글 수정</h2>
 		<hr class="my-4" />
+		<AppError v-if="editError" :message="editError.message" />
 		<PostForm
 			v-model:title="form.title"
 			v-model:content="form.content"
@@ -17,7 +20,17 @@
 				>
 					취소
 				</button>
-				<button class="btn btn-primary">수정</button>
+				<button class="btn btn-primary" :disabled="editLoading">
+					<template v-if="editLoading">
+						<span
+							class="spinner-grow spinner-grow-sm"
+							role="status"
+							aria-hidden="true"
+						></span>
+						<span class="visually-hidden">Loading...</span>
+					</template>
+					<template v-else> 수정 </template>
+				</button>
 			</template>
 		</PostForm>
 	</div>
@@ -58,14 +71,20 @@ const setForm = ({ title, content }) => {
 	form.value.content = content;
 };
 fetchPost();
+const editError = ref(null);
+const editLoading = ref(false);
+
 const edit = async () => {
 	try {
+		editLoading.value = true;
 		await updatePost(id, { ...form.value });
 		vSuccess('수정이 완료되었습니다!');
 		router.push({ name: 'PostDetail', params: { id } });
-	} catch (error) {
-		console.error(error);
-		vAlert(error.message);
+	} catch (err) {
+		vAlert(err.message);
+		editError.value = err;
+	} finally {
+		editLoading.value = false;
 	}
 };
 
