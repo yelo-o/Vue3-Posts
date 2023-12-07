@@ -20,7 +20,7 @@ const routes = [
 	},
 	{
 		path: '/about',
-		name: '어바웃',
+		name: 'About',
 		component: AboutView,
 	},
 	{ path: '/posts', name: 'PostList', component: PostListView },
@@ -47,22 +47,31 @@ const routes = [
 		path: '/my',
 		name: 'MyPage',
 		component: MyPage,
+		beforeEnter: [removeQueryString],
 	},
 ];
+
+function removeQueryString(to) {
+	if (Object.keys(to.query).length > 0) {
+		return { path: to.path, query: {} };
+	}
+}
 
 const router = createRouter({
 	history: createWebHistory(),
 	// history: createWebHashHistory(),
 	routes,
 });
-router.beforeEach((to, from) => {
-	console.log('to : ', to);
-	console.log('from : ', from);
-	if (to.name === 'MyPage') {
-		// router.push({ name: 'Home' });
-		// return false;
-		// return { name: 'Home' };
-		return '/posts';
-	}
-});
+
+// router.beforeEach((to, from) => {
+// 	console.log('to : ', to);
+// 	console.log('from : ', from);
+// 	if (to.name === 'MyPage') {
+// 		// router.push({ name: 'Home' });
+// 		// return false;
+// 		// return { name: 'Home' };
+// 		return '/posts';
+// 	}
+// });
+
 export default router;
