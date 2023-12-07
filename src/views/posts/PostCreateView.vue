@@ -15,7 +15,7 @@
 				<button class="btn btn-primary">저장</button>
 			</template>
 		</PostForm>
-		<AppAlert :items="alerts" />
+		Alert :items="alerts" />
 	</div>
 </template>
 
@@ -26,7 +26,7 @@ import { createPost } from '@/api/posts';
 import PostForm from '@/components/posts/PostForm.vue';
 import { useAlert } from '@/composables/alert';
 
-const { alerts, vAlert, vSuccess } = useAlert();
+const { vAlert, vSuccess } = useAlert();
 
 const router = useRouter();
 const form = ref({
