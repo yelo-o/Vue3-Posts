@@ -24,6 +24,7 @@ console.log('route.path', route.path);
 const store = useCounterStore();
 const { counter, doubleCount, doubleCountPlusOne } = storeToRefs(store); //구조분해 할당을 위해서는 storeToRefs 을 사용해야 한다.
 const { increment } = store;
+counter.value = 100; //반응성을 갖은 채로 직접 값 초기화 가능
 </script>
 
 <style lang="scss" scoped></style>
