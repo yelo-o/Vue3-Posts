@@ -1,16 +1,9 @@
-import { ref } from 'vue';
+import { useAlertStore } from '@/stores/alert';
+import { storeToRefs } from 'pinia';
 
-const alerts = ref([]); //함수 호출 전에 모듈 scope에서 상태를 갖는다.
 export function useAlert() {
-	//alert
-	// const alerts = ref([]);
-	const vAlert = (message, type = 'error') => {
-		alerts.value.push({ message, type });
-		setTimeout(() => {
-			alerts.value.shift();
-		}, 2000);
-	};
-	const vSuccess = message => vAlert(message, 'success');
+	const { alerts } = storeToRefs(useAlertStore());
+	const { vAlert, vSuccess } = useAlertStore();
 	return {
 		alerts,
 		vAlert,
