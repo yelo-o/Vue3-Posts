@@ -50,3 +50,8 @@ npm i unplugin-vue-components -D
 ```
 npm install dayjs
 ```
+
+### install PINIA
+```
+npm install pinia
+```
