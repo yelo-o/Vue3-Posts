@@ -27,6 +27,9 @@ import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { getPostById, updatePost } from '@/api/posts';
 import PostForm from '@/components/posts/PostForm.vue';
+import { useAlert } from '@/composables/alert';
+
+const { alerts, vAlert, vSuccess } = useAlert();
 
 const route = useRoute();
 const router = useRouter();
@@ -65,15 +68,6 @@ const goDetailPage = () =>
 		name: 'PostDetail',
 		params: { id },
 	});
-//alert
-const alerts = ref([]);
-const vAlert = (message, type = 'error') => {
-	alerts.value.push({ message, type });
-	setTimeout(() => {
-		alerts.value.shift();
-	}, 2000);
-};
-const vSuccess = message => vAlert(message, 'success');
 </script>
 
 <style lang="scss" scoped></style>
